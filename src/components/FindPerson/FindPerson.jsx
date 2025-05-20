@@ -96,7 +96,7 @@ function FindPerson() {
 					<div className="mt-4 absolute top-50">
 						{matched.length && currentSearch === 'name' ? (
 							matched.map((item, index) => (
-								<div key={index} className="flex justify-self-start mb-2">
+								<div key={index} className="flex justify-self-start mb-2 overflow-x-scroll">
 									<p className="bg-green-950 px-3 mx-2 rounded">
 										<span>Name: <span className="text-green-600">{item[0]}</span></span>,
 										<span className="ml-2">Phone No: <span className="text-green-600">{item[1]}</span></span>,
@@ -126,7 +126,7 @@ function FindPerson() {
 					<div className="mt-4 absolute top-50">
 						{matched.length && currentSearch === 'village' ? (
 							matched.map((item, index) => (
-								<div key={index} className="flex justify-self-start mb-2">
+								<div key={index} className="flex justify-self-start mb-2 overflow-x-scroll">
 									<p className="bg-green-950 px-3 mx-2 rounded">
 										<span className="">Village: <span className="text-green-600">{item[2]}</span></span>
 										<span className="ml-2">Name: <span className="text-green-600">{item[0]}</span></span>,
