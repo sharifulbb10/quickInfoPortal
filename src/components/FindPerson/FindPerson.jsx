@@ -74,7 +74,7 @@ function FindPerson() {
 	return (
 		<>
 			{isFetched ? (
-				<div className="flex flex-col items-center h-[100vh] text-white text-sm md:text-xs h-[100vh] bg-sky-950 relative">
+				<div className="flex flex-col items-center h-[100vh] text-white text-sm md:text-xs h-auto bg-sky-950 relative">
 					
 					<div className="flex justify-center flex-col mb-5 absolute top-5">
 						<p className="self-center">Batch 2016</p>
