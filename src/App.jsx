@@ -3,7 +3,7 @@ import FindPerson from './components/FindPerson/FindPerson.jsx'
 function App() {
 
   return (
-    <div className="min-h-[100vh]">
+    <div className="bg-sky-950">
       <FindPerson/>
     </div>
   )

@@ -75,7 +75,7 @@ function FindPerson() {
 	return (
 		<>
 			{isFetched ? (
-				<div className="flex flex-col items-center min-h-[100vh] text-white text-sm md:text-xs bg-sky-950 relative">
+				<div className="flex flex-col items-center min-h-[120vh] text-white text-sm md:text-xs bg-sky-950 relative">
 					
 					<div className="flex justify-center flex-col mb-5 absolute top-5">
 						<p className="self-center">Batch 2016</p>
@@ -96,7 +96,7 @@ function FindPerson() {
 					<div className="mt-4 absolute top-50">
 						{matched.length && currentSearch === 'name' ? (
 							matched.map((item, index) => (
-								<div key={index} className="flex justify-self-start mb-2 overflow-x-scroll">
+								<div key={index} className="flex justify-self-start mb-2">
 									<p className="bg-green-950 px-3 mx-2 rounded">
 										<span>Name: <span className="text-green-600">{item[0]}</span></span>,
 										<span className="ml-2">Phone No: <span className="text-green-600">{item[1]}</span></span>,
@@ -126,7 +126,7 @@ function FindPerson() {
 					<div className="mt-4 absolute top-50">
 						{matched.length && currentSearch === 'village' ? (
 							matched.map((item, index) => (
-								<div key={index} className="flex justify-self-start mb-2 overflow-x-scroll">
+								<div key={index} className="flex justify-self-start mb-2">
 									<p className="bg-green-950 px-3 mx-2 rounded">
 										<span className="">Village: <span className="text-green-600">{item[2]}</span></span>
 										<span className="ml-2">Name: <span className="text-green-600">{item[0]}</span></span>,
