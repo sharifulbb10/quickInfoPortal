@@ -1,0 +1,8 @@
+.animated {
+	margin-top: 10%;
+	width: 80px;
+	height: 80px;
+	opacity: 0;
+	background-color: oklch(50% 0.134 242.749);
+	border-radius: 10px;
+}
