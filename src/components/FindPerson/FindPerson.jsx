@@ -22,6 +22,7 @@ function FindPerson() {
 				setIsFetched(true);
 			} catch (error) {
 				setIsFetched(false);
+				console.log(error);
 			}
 		}
 
@@ -74,7 +75,7 @@ function FindPerson() {
 	return (
 		<>
 			{isFetched ? (
-				<div className="flex flex-col items-center h-[100vh] text-white text-sm md:text-xs h-full bg-sky-950 relative">
+				<div className="flex flex-col items-center min-h-[100vh] text-white text-sm md:text-xs bg-sky-950 relative">
 					
 					<div className="flex justify-center flex-col mb-5 absolute top-5">
 						<p className="self-center">Batch 2016</p>
