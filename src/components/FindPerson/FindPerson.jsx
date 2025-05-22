@@ -94,7 +94,7 @@ function FindPerson() {
 						/>
 					</form>
 
-					<div className="mt-4 absolute top-50">
+					<div className="mt-4 absolute top-50 z-1">
 						{matched.length && currentSearch === 'name' ? (
 							matched.map((item, index) => (
 								<div key={index} className="flex justify-self-start mb-2">
@@ -124,7 +124,7 @@ function FindPerson() {
 						/>
 					</form>
 					</div>
-					<div className="mt-4 absolute top-50">
+					<div className="mt-4 absolute top-50 z-1">
 						{matched.length && currentSearch === 'village' ? (
 							matched.map((item, index) => (
 								<div key={index} className="flex justify-self-start mb-2">
