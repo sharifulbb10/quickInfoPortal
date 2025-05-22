@@ -14,11 +14,12 @@ function FindPerson() {
 	useEffect(() => {
 		async function fetchSheetData() {
 			try {
-				const response = await fetch('https://docs.google.com/spreadsheets/d/1QT_Fr_lm3Pt-A76Rzco1JzhgYHPPsMKaCotekSraURE/gviz/tq?tqx=out:json');
+				const response = await fetch('https://docs.google.com/spreadsheets/d/1AAe2XYIYyy-mtbcsaOMpyemnaU6xaVkuElRg3yJli7Y/gviz/tq?tqx=out:json');
 				const text = await response.text();
 				const json = JSON.parse(text.substring(47).slice(0, -2));
 				const rows = json.table.rows.map(row => row.c.map(cell => cell ? cell.v : ''));
 				setData(rows);
+				console.log(rows);
 				setIsFetched(true);
 			} catch (error) {
 				setIsFetched(false);
@@ -40,7 +41,7 @@ function FindPerson() {
 			return;
 		}
 
-		const filtered = data.filter(row => row[0]?.toLowerCase().startsWith(inputValue.toLowerCase()));
+		const filtered = data.filter(row => row[1]?.toLowerCase().startsWith(inputValue.toLowerCase()));
 		setMatched(filtered);
 	}
 
@@ -55,7 +56,7 @@ function FindPerson() {
 			return;
 		}
 
-		const filtered = data.filter(row => row[2]?.toLowerCase().startsWith(inputValue.toLowerCase()));
+		const filtered = data.filter(row => row[3]?.toLowerCase().startsWith(inputValue.toLowerCase()));
 		setMatched(filtered);
 	}
 
@@ -98,11 +99,11 @@ function FindPerson() {
 							matched.map((item, index) => (
 								<div key={index} className="flex justify-self-start mb-2">
 									<p className="bg-green-950 px-3 mx-2 rounded">
-										<span>Name: <span className="text-green-600">{item[0]}</span></span>,
-										<span className="ml-2">Phone No: <span className="text-green-600">{item[1]}</span></span>,
-										<span className="ml-2">Village: <span className="text-green-600">{item[2]}</span></span>
-										<span className="ml-2">Is_Migrant: <span className="text-green-600">{item[3]}</span></span>
-										<span className="ml-2">Additional No: <span className="text-green-600">{item[4]}</span></span>
+										<span>Name: <span className="text-green-600">{item[1]}</span></span>,
+										<span className="ml-2">Phone No: <span className="text-green-600">{item[2]}</span></span>,
+										<span className="ml-2">Village: <span className="text-green-600">{item[3]}</span></span>
+										<span className="ml-2">Is_Migrant: <span className="text-green-600">{item[4]}</span></span>
+										<span className="ml-2">Additional No: <span className="text-green-600">{item[5]}</span></span>
 									</p>
 								</div>
 							))
@@ -128,11 +129,11 @@ function FindPerson() {
 							matched.map((item, index) => (
 								<div key={index} className="flex justify-self-start mb-2">
 									<p className="bg-green-950 px-3 mx-2 rounded">
-										<span className="">Village: <span className="text-green-600">{item[2]}</span></span>
-										<span className="ml-2">Name: <span className="text-green-600">{item[0]}</span></span>,
-										<span className="ml-2">Phone No: <span className="text-green-600">{item[1]}</span></span>,
-										<span className="ml-2">Is_Migrant: <span className="text-green-600">{item[3]}</span></span>
-										<span className="ml-2">Additional No: <span className="text-green-600">{item[4]}</span></span>
+										<span className="">Village: <span className="text-green-600">{item[3]}</span></span>
+										<span className="ml-2">Name: <span className="text-green-600">{item[1]}</span></span>,
+										<span className="ml-2">Phone No: <span className="text-green-600">{item[2]}</span></span>,
+										<span className="ml-2">Is_Migrant: <span className="text-green-600">{item[4]}</span></span>
+										<span className="ml-2">Additional No: <span className="text-green-600">{item[5]}</span></span>
 									</p>
 								</div>
 							))
