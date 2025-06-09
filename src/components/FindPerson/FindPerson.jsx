@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import styles from './FindPerson.module.css';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
+import Menu from '../menu/Menu.jsx';
 
 function FindPerson() {
 	const [data, setData] = useState([]);
@@ -10,6 +11,7 @@ function FindPerson() {
 	const [matched, setMatched] = useState([]);
 	const [isFetched, setIsFetched] = useState(false); // FIXED
 	const [currentSearch, setCurrentSearch] = useState(''); // 'name' or 'village'
+	const [isExpanded, setIsExpanded] = useState(false); // for expandable nav bar
 
 	useEffect(() => {
 		async function fetchSheetData() {
@@ -19,8 +21,7 @@ function FindPerson() {
 				const json = JSON.parse(text.substring(47).slice(0, -2));
 				const rows = json.table.rows.map(row => row.c.map(cell => cell ? cell.v : ''));
 				setData(rows);
-				console.log(rows);
-				setIsFetched(true);
+				rows.length? setIsFetched(true): setIsFetched(false);
 			} catch (error) {
 				setIsFetched(false);
 				console.log(error);
@@ -59,31 +60,102 @@ function FindPerson() {
 		const filtered = data.filter(row => row[3]?.toLowerCase().startsWith(inputValue.toLowerCase()));
 		setMatched(filtered);
 	}
+	
 
 	// animation during data fetching
 
-	const target = useRef(null);
+	const boxRef = useRef();
+	useGSAP(() => {
+        gsap.to(boxRef.current, {
+        	rotate: 180,
+        opacity: 1,
+        duration: 1,
+        repeat: -1,
+        })
+	},{ dependencies: [isFetched], revertOnUpdate: true });
 
-	useGSAP(()=>{
-		gsap.to(target.current, {
-			rotate: 180,
-			opacity: 1,
-			duration: 1,
-			repeat: -1,
+	// animated nav menu
+	function handleExpand() {
+		setIsExpanded((state)=> {
+			const newState = !state;
+			!isExpanded ? menuExpanded() : menuClosed();
+			return newState;
+		});		
+	}
+	// menu expanded
+	function menuExpanded() {
+		gsap.to('.line1', {
+			rotate: 45,
+			y: 4.5,
+			duration: 0.5,
+		});
+		gsap.to('.line2', {
+			rotate: -45,
+			y: -4.5,
+			duration: 0.5,
+		});
+		gsap.to('.expandableDiv', {
+			width: 340,
+			height: 400,
+			duration: 0.5,
 		})
-	},[])
+		gsap.to('.insideText', {
+			display: 'block',
+			delay: 0.4,
+		})
+
+	}
+	function menuClosed() {
+		gsap.to('.line1', {
+			rotate: 0,
+			y: -0.5,
+			duration: 0.8,
+		});
+		gsap.to('.line2', {
+			rotate: 0,
+			y: 0.5,
+			 duration: 0.8,
+		});
+		gsap.to('.expandableDiv', {
+			width: 0,
+			height: 0,
+			duration: 0.4,
+			delay: 0.4,
+		})
+		gsap.to('.insideText', {
+			display: 'none',
+		})
+	}
 
 	return (
 		<>
 			{isFetched ? (
-				<div className="flex flex-col items-center min-h-[120vh] text-white text-sm md:text-xs bg-sky-950 relative">
-					
-					<div className="flex justify-center flex-col mb-5 absolute top-5">
-						<p className="self-center">Batch 2016</p>
-						<p className="self-center font-bold text-lg">Quick Info Portal</p>
+				<div className="bg-sky-950 min-h-screen flex flex-col items-center min-h-[100%] w-[100vw] text-white text-xs md:text-sm relative flex-grow">
+
+					{/*This is the expandable nav bar*/}
+					<div className="fixed top-2 right-2 z-3 opacity-90">
+						<div className="absolute w-10 h-10 bg-black flex flex-col justify-center items-center gap-2 top-0 right-0" onClick={handleExpand}>
+							<div className="line1 w-7 h-[2px] bg-white"></div>
+							<div className="line2 w-7 h-[2px] bg-white"></div>
+						</div>
+						<div className="expandableDiv bg-black w-0 h-0 top-0 right-0 flex justify-center items-center">
+							<div className="insideText hidden p-3 text-center">
+								<span className="">
+									<span className="font-semibold">দ্রষ্টব্য:</span> যদি ২০১৬ ব্যাচের কেউ তথ্য না দিয়ে থাকো, তাহলে এই <span className="font-semibold text-green-700">ফরমে</span> গিয়ে তথ্য পুরণ করো। আর তথ্য দিয়ে থাকলে ২য় বার তথ্য দেওয়ার দরকার নেই। 
+									<a href="https://forms.gle/YDBxCizUDqNxt6hW6"><div className="w-[80%] h-9 bg-green-800 mx-[auto] mt-4 rounded flex justify-center items-center cursor-pointer">Google Form</div></a>
+									<span className="block text-xs opacity-80 mt-12">@Kaktarua, Shah Rahat Ali High School</span>
+								</span>
+							</div>
+						</div>
 					</div>
 
-					<form className="absolute top-20">
+					{/*This the main page content	*/}
+					<div className="flex justify-center flex-col mb-5 absolute top-5">
+						<p className="self-center font-light text-lg text-green-600">Batch 2016</p>
+						<p className="self-center font-light text-lg">Quick Info Portal</p>
+					</div>
+
+					<form className="absolute top-24">
 						<label className="p-2" htmlFor="name">Search by name:</label>
 						<input
 							type="text"
@@ -112,7 +184,7 @@ function FindPerson() {
 						)}
 					</div>
 
-					<div className="absolute top-30">
+					<div className="absolute top-32">
 						<form className="mt-4">
 						<label className="p-2" htmlFor="village">Search by village:</label>
 						<input
@@ -144,9 +216,10 @@ function FindPerson() {
 					<div className="absolute bottom-2 flex items-center text-xs">@Kaktarua, Shah Rahat Ali High School</div>
 				</div>
 			) : (
-				<div className="flex flex-col justify-center items-center h-[100vh] text-white text-sm md:text-xs h-[100vh] bg-sky-950">
+				<div className="beforeDataFetch flex flex-col justify-center items-center h-[100vh] text-white text-sm md:text-xs h-[100vh] bg-sky-950">
 					<div className="text-center mt-10">Data is being processed, wait!</div>
-					<div ref={target} className={styles.animated}></div>
+					<div ref={boxRef} className={`${styles.animated}`}></div>
+					
 				</div>
 			)}
 		</>
