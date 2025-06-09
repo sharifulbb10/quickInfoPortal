@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import styles from './FindPerson.module.css';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
-import Menu from '../menu/Menu.jsx';
 
 function FindPerson() {
 	const [data, setData] = useState([]);
@@ -130,7 +129,7 @@ function FindPerson() {
 	return (
 		<>
 			{isFetched ? (
-				<div className="bg-sky-950 min-h-screen flex flex-col items-center min-h-[100%] w-[100vw] text-white text-xs md:text-sm relative flex-grow">
+				<div className="flex flex-col items-center w-[100vw] min-h-screen text-white text-xs md:text-sm relative flex-grow">
 
 					{/*This is the expandable nav bar*/}
 					<div className="fixed top-2 right-2 z-3 opacity-90">
